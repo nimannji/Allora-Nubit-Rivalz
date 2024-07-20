@@ -91,16 +91,19 @@ allorad keys add wallet
 https://faucet.testnet.allora.network/
 
 
+با این دستور میشه چک کرد که وضعیت سینک نود به چه صورتی هست
+
 ```
 allorad status | jq .sync_info
 ```
 
 صبر کنید نود سینک شه و False بشه
+
+با دستور زیر موجودی ولت رو چک میکنیم
 ```
 allorad query bank balances <your_wallet_address>
 ```
-موجودی ولت رو چک کنید
-
+دستور زیر رو میزنم و اسم ولت رو که wallet هست و اسم نود رو که انتخاب کردیم وارد میکنیم
 ```
 cd
 cd deploy-node-allora
@@ -108,18 +111,21 @@ cd deploy-node-allora
 ansible-playbook register_validator_node_allora.yml
 ```
 
-مشخصات رو وارد کنید
+اینجا ولیدیتورمون ساخته میشه.
 
+
+با دستور زیر آدرس ولیدیتوری که ساختیم رو میتونیم ببینیم و جایی ذخیرش میکنیم.
 
 ```
 allorad keys show wallet -a --bech val --keyring-backend test
 ```
 
-ولیدیتور ادرس رو بگیرید
+آدرس ولیدیتور رو جایگذاری میکنیم توی دستور زیر و حواسمون باشه که مشخصاتش سالم باشه
 ```
 allorad query staking validator <validator_address>
 ```
 
+کامند زیر هم برای دلیگیت کردن هست
 ```
 allorad tx staking delegate $(allorad keys show wallet --bech val -a --keyring-backend test) 500000000uallo --from wallet --gas=auto --gas-adjustment=1.4 --keyring-backend test -y
 ```
