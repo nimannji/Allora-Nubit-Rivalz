@@ -136,7 +136,8 @@ Worker
 cd
 wget https://raw.githubusercontent.com/dxzenith/allora-worker-node/main/allora.sh && chmod +x allora.sh && ./allora.sh
 ```
-
+فقط سید ولت رو یک جایی باید وارد کنید و بعدش هم HEAD ID که میده رو کپی کنید و ذخیره کنید. 
+تو مرحله بعدی HEAD ID و سید رو وارد میکنید و نود ورکر اکی میشه
 
 
 
