@@ -2,7 +2,8 @@
 
 ```
 apt update && sudo apt upgrade -y
-
+```
+```
 apt install git -y
 
 apt remove ansible -y
