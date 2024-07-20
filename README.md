@@ -130,11 +130,12 @@ allorad query staking validator <validator_address>
 allorad tx staking delegate $(allorad keys show wallet --bech val -a --keyring-backend test) 500000000uallo --from wallet --gas=auto --gas-adjustment=1.4 --keyring-backend test -y
 ```
 
-نود وورکر رو هم راه اندازی کنید طبق ویدیو
+نود وورکر رو هم راه اندازی کنید طبق ویدیو فقط توجه کنید که ما دو تا ورکر اینجا ران میکنیم و این برای کسایی که قبلا ران نکردن
 Worker
 ```
 cd
-wget https://raw.githubusercontent.com/dxzenith/allora-worker-node/main/allora.sh && chmod +x allora.sh && ./allora.sh
+rm -rf alloranew.sh 
+wget https://raw.githubusercontent.com/cryptoneth/Allora-Script-/main/alloranew.sh && chmod +x alloranew.sh && ./alloranew.sh
 ```
 فقط سید ولت رو یک جایی باید وارد کنید و بعدش هم HEAD ID که میده رو کپی کنید و ذخیره کنید. 
 تو مرحله بعدی HEAD ID و سید رو وارد میکنید و نود ورکر اکی میشه
@@ -149,13 +150,13 @@ https://app.allora.network/points/overview ولتتون رو به سایت هم 
 systemctl restart allora-node
 ```
 ==================== این کامند ها در صورت نیاز است 
-** کامند چک کردن سلامت نود Woker
+
+** کامند چک کردن سلامت نود ورکر شماره یک
 
 
 ```
-curl --location 'http://localhost:6000/api/v1/functions/execute' \
---header 'Content-Type: application/json' \
---data '{
+network_height=$(curl -s -X 'GET' 'https://allora-rpc.testnet-1.testnet.allora.network/abci_info?' -H 'accept: application/json' | jq -r .result.response.last_block_height) && \
+curl --location 'http://localhost:6000/api/v1/functions/execute' --header 'Content-Type: application/json' --data '{
     "function_id": "bafybeigpiwl3o73zvvl6dxdqu7zqcub5mhg65jiky2xqb4rdhfmikswzqm",
     "method": "allora-inference-function.wasm",
     "parameters": null,
@@ -169,13 +170,47 @@ curl --location 'http://localhost:6000/api/v1/functions/execute' \
             {
                 "name": "ALLORA_ARG_PARAMS",
                 "value": "ETH"
+            },
+            {
+                "name": "ALLORA_BLOCK_HEIGHT_CURRENT",
+                "value": "'"${network_height}"'"
             }
         ],
         "number_of_nodes": -1,
-        "timeout": 2
+        "timeout": 3
     }
-}'
+}' | jq
+```
 
+
+** کامند چک کردن سلامت نود ورکر شماره دو
+
+```
+network_height=$(curl -s -X 'GET' 'https://allora-rpc.testnet-1.testnet.allora.network/abci_info?' -H 'accept: application/json' | jq -r .result.response.last_block_height) && \
+curl --location 'http://localhost:6000/api/v1/functions/execute' --header 'Content-Type: application/json' --data '{
+    "function_id": "bafybeigpiwl3o73zvvl6dxdqu7zqcub5mhg65jiky2xqb4rdhfmikswzqm",
+    "method": "allora-inference-function.wasm",
+    "parameters": null,
+    "topic": "2",
+    "config": {
+        "env_vars": [
+            {
+                "name": "BLS_REQUEST_PATH",
+                "value": "/api"
+            },
+            {
+                "name": "ALLORA_ARG_PARAMS",
+                "value": "ETH"
+            },
+            {
+                "name": "ALLORA_BLOCK_HEIGHT_CURRENT",
+                "value": "'"${network_height}"'"
+            }
+        ],
+        "number_of_nodes": -1,
+        "timeout": 3
+    }
+}' | jq
 ```
 
 کامند ری استارت کردن نور وورکر 
