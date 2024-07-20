@@ -1,5 +1,4 @@
 #Allora
-
 ```
 apt update && sudo apt upgrade -y
 
