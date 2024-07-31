@@ -38,7 +38,7 @@ cd deploy-node-allora
 اینجا در صورت خوردن به ارور باید با فایل زیلا یا ترمیوس برید به آدرس root/deploy-node-allora/templates/allora-node.service.j2 و اسم فایل رو از allora-node.service.yml.j2 
 به allora-node.service.j2 تغییر بدید یعنی yml رو تو اسم حذف کنید و بعد دستور رو اجرا کنید.
 ```
-ansible-playbook install_validator_node_testnet_v2_allora.yml -e moniker="your_moniker_name"
+ansible-playbook install_validator_node_allora.yml -e moniker="your_node_name"
 
 ```
 
